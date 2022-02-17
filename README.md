@@ -1,4 +1,4 @@
-# Food-Image-to-Recipe-Converter (In-Progress)
+# Food-Image-to-Recipe-Converter
 <a href="https://colab.research.google.com/drive/1TnX3rEkcR11njx0--v-2msGwgRokLbro?usp=sharing">Colab notebook</a>
 
 This project implements a food image to recipe converter for Indian food. 
@@ -12,7 +12,7 @@ The recipes from the website are scraped and saved as a JSON file, google_images
 
 A total of 9432 images are downloaded (7860 train and 1572 test)
 
-##Method
+## Method
 This is a fairly complicated task, I mean humans use several senses like sight smell and taste to differentiate between food, an algorithm can't do that, well at least not yet, and on top of that a lot of Indian dishes look the same (hey, even a human can't tell the difference between "chicken curry" and "chicken tikka masala" just by looking at it).
 
 Running the generate_encodings.py script encodes each image and saves it in encodings.txt along with the corresponding recipe names in enc_names.txt.
@@ -21,8 +21,11 @@ The input image is first encoded and then the cosine similarity between the imag
 
 Densenet201 was used to encode the images, out of all the models tested, this showed the highest accuracy (58%), which is pretty decent for this task, you know, because of the stuff mentioned before.
 
-##SeeFood Web Application
-<img src="SeeFood/WebApp/static/WebApp/title.png">
+## SeeFood Website
+<img src="SeeFood/WebApp/static/WebApp/title.png" width="500">
 
+The web application is made using django.
 
-reference: http://pic2recipe.csail.mit.edu/
+You can upload a food image or, on mobile, you can take a picture. The system fetches 4 recipes that are visually most similar to the uploaded image, if your not happy with the result there is an option to show 4 more reciepes.
+<br><br><br><br><br><br>
+**reference:** http://pic2recipe.csail.mit.edu/
