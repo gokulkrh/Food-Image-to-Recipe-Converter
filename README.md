@@ -4,7 +4,7 @@
 This project implements a food image to recipe converter for Indian food. 
 
 ## Dataset
-The dataset used in this project can be obtained by running the scraper.py script.
+The dataset used in this project can be obtained by running the `scraper.py` script.
 
 All the recipes in this dataset are scraped from <a href="https://www.food.com/">food.com</a> with "Indian" as search term. A total of 786 unique Indian recipes are taken from the website.
 
@@ -13,9 +13,9 @@ The recipes from the website are scraped and saved as a JSON file, google_images
 A total of 9432 images are downloaded (7860 train and 1572 test)
 
 ## Method
-This is a fairly complicated task, I mean humans use several senses like sight smell and taste to differentiate between food, an algorithm can't do that, well at least not yet, and on top of that a lot of Indian dishes look the same (hey, even a human can't tell the difference between "chicken curry" and "chicken tikka masala" just by looking at it).
+This is a fairly complicated task, I mean humans use several senses like sight, smell and taste to differentiate between food, an algorithm can't do that, well at least not yet, and on top of that a lot of Indian dishes look the same (hey, even a human can't tell the difference between "chicken curry" and "chicken tikka masala" just by looking at it).
 
-Running the generate_encodings.py script encodes each image and saves it in encodings.txt along with the corresponding recipe names in enc_names.txt.
+Running the `generate_encodings.py` script encodes each image and saves it in encodings.txt along with the corresponding recipe names in enc_names.txt.
 
 The input image is first encoded and then the cosine similarity between the image vector and images in the dataset are calculated, now due to the reasons mentioned earlier, a total of 10 predictions will be taken for each image and if at least one of them is correct, well YAY!!.
 
