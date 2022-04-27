@@ -2,9 +2,23 @@ body {
     margin: 0;
 }
 
+.wrapper {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.bottom-section {
+    flex-shrink: 0;
+}
+
+.main-content {
+    flex-grow: 1;
+}
+
 @media only screen and (min-width: 750px) {
     /* top div */
-    
+
     .top-section {
         height: 110px;
         width: 100%;

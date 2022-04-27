@@ -8,92 +8,94 @@
     <link rel="stylesheet" type="text/css" href="{% static 'WebApp/style.css' %}">
 </head>
 <body>
-    <div class="top-section">
-        <img id="title_image" src="{% static 'WebApp/title.png' %}" alt="">
-    </div>
-    <div class="main_content">
-        <div class="image-upload-area">
-            <center><h4 style="width: 100%;">A food image to recipe converter for Indian Food</h4></center>
-            <div class="uploaded-image-display">
-                <img id="up-image" src="data:image/png;base64,{{uploaded_image}}">
+    <div class="wrapper">
+        <div class="top-section">
+            <img id="title_image" src="{% static 'WebApp/title.png' %}" alt="">
+        </div>
+        <div class="main_content">
+            <div class="image-upload-area">
+                <center><h4 style="width: 100%;">A food image to recipe converter for Indian Food</h4></center>
+                <div class="uploaded-image-display">
+                    <img id="up-image" src="data:image/png;base64,{{uploaded_image}}">
+                </div>
+                <div class="image_form">
+                    <form method = "post"  enctype="multipart/form-data" style="width: 100%;">
+                        {% csrf_token %}
+                        <label class="upload_button">
+                            Upload Image
+                            <input type="file" name="image" accept="image/*" id="id_image"
+                            onchange="document.getElementById('up-image').src = window.URL.createObjectURL(this.files[0])">
+                        </label>&nbsp;&nbsp;&nbsp;
+                        <label class="upload_button">
+                            Take a Picture
+                            <input type="file" name="image" accept="image/*" capture="environment" id="cap_image"
+                            onchange="document.getElementById('up-image').src = window.URL.createObjectURL(this.files[0])">
+                        </label><br><br>
+                        <button class="process_button" type="submit">Convert</button>
+                    </form>
+                </div>
             </div>
-            <div class="image_form">
-                <form method = "post"  enctype="multipart/form-data" style="width: 100%;">
-                    {% csrf_token %}
-                    <label class="upload_button">
-                        Upload Image
-                        <input type="file" name="image" accept="image/*" id="id_image" 
-                        onchange="document.getElementById('up-image').src = window.URL.createObjectURL(this.files[0])">
-                    </label>&nbsp;&nbsp;&nbsp;
-                    <label class="upload_button">
-                        Take a Picture
-                        <input type="file" name="image" accept="image/*" capture="environment" id="cap_image" 
-                        onchange="document.getElementById('up-image').src = window.URL.createObjectURL(this.files[0])">
-                    </label><br><br>
-                    <button class="process_button" type="submit">Convert</button>
-                </form>
+
+            <div class="results-display-area">
+                {% if recipe_list_to_return %}
+                    <center><h3 onclick="display_more()">Here are some possible matches, (might not be 100% accurate)</h3></center>
+                    {% for x in recipe_list_to_return %}
+                    <div class="recipe-card">
+                        <div class="first_section">
+                            <h2 class="recipe_name">{{ x.0 }}</h2>
+                            <div class="recipe-card-image-div">
+                                <img class="recipe-card-image" src="{% static '' %}{{x.1}}" alt="">
+                            </div>
+                            <h4 style="padding-inline: 5px;margin: 0;margin-top: 10px;">{{ x.2 }}<br>Cooking Time: {{ x.3 }}</h4>
+                        </div>
+                        <div class="second_section">
+                            <h3 style="padding-inline: 5px;">Ingredients</h3>
+                            <p class="ing_dir_display_area">{{ x.4 }}</p>
+                        </div>
+                        <div class="third_section">
+                            <h3 style="padding-inline: 5px;">Directions</h3>
+                            <p class="ing_dir_display_area">{{ x.5 }}</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    <center><h3 onclick="display_more()">Can't find what your looking for?, Click here to see more</h3></center>
+                {% endif %}
+
+            </div>
+            <div class="results-display-area" id="extra_results" style="display: none;">
+                {% if similar_recipe_list %}
+                    {% for x in similar_recipe_list %}
+                    <div class="recipe-card">
+                        <div class="first_section">
+                            <h2 class="recipe_name">{{ x.0 }}</h2>
+                            <div class="recipe-card-image-div">
+                                <img class="recipe-card-image" src="{% static '' %}{{x.1}}" alt="">
+                            </div>
+                            <h4 style="padding-inline: 5px;margin: 0;margin-top: 10px;">{{ x.2 }}<br>Cooking Time: {{ x.3 }}</h4>
+                        </div>
+                        <div class="second_section">
+                            <h3 style="padding-inline: 5px;">Ingredients</h3>
+                            <p class="ing_dir_display_area">{{ x.4 }}</p>
+                        </div>
+                        <div class="third_section">
+                            <h3 style="padding-inline: 5px;">Directions</h3>
+                            <p class="ing_dir_display_area">{{ x.5 }}</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% endif %}
             </div>
         </div>
 
-        <div class="results-display-area">
-            {% if recipe_list_to_return %}
-                <center><h3 onclick="display_more()">Here are some possible matches, (might not be 100% accurate)</h3></center>
-                {% for x in recipe_list_to_return %}
-                <div class="recipe-card">
-                    <div class="first_section">
-                        <h2 class="recipe_name">{{ x.0 }}</h2>
-                        <div class="recipe-card-image-div">
-                            <img class="recipe-card-image" src="{% static '' %}{{x.1}}" alt="">
-                        </div>
-                        <h4 style="padding-inline: 5px;margin: 0;margin-top: 10px;">{{ x.2 }}<br>Cooking Time: {{ x.3 }}</h4>
-                    </div>
-                    <div class="second_section">
-                        <h3 style="padding-inline: 5px;">Ingredients</h3>
-                        <p class="ing_dir_display_area">{{ x.4 }}</p>
-                    </div>
-                    <div class="third_section">
-                        <h3 style="padding-inline: 5px;">Directions</h3>
-                        <p class="ing_dir_display_area">{{ x.5 }}</p>
-                    </div>
-                </div>
-                {% endfor %}
-                <center><h3 onclick="display_more()">Can't find what your looking for?, Click here to see more</h3></center>
-            {% endif %}
-                
-        </div>
-        <div class="results-display-area" id="extra_results" style="display: none;">
-            {% if similar_recipe_list %}
-                {% for x in similar_recipe_list %}
-                <div class="recipe-card">
-                    <div class="first_section">
-                        <h2 class="recipe_name">{{ x.0 }}</h2>
-                        <div class="recipe-card-image-div">
-                            <img class="recipe-card-image" src="{% static '' %}{{x.1}}" alt="">
-                        </div>
-                        <h4 style="padding-inline: 5px;margin: 0;margin-top: 10px;">{{ x.2 }}<br>Cooking Time: {{ x.3 }}</h4>
-                    </div>
-                    <div class="second_section">
-                        <h3 style="padding-inline: 5px;">Ingredients</h3>
-                        <p class="ing_dir_display_area">{{ x.4 }}</p>
-                    </div>
-                    <div class="third_section">
-                        <h3 style="padding-inline: 5px;">Directions</h3>
-                        <p class="ing_dir_display_area">{{ x.5 }}</p>
-                    </div>
-                </div>
-                {% endfor %}
-            {% endif %}
-        </div>
-    </div>
-
-    <div class="bottom-section">
-        <h5 style="margin-block: 5px;"><b>NOTE:</b>&nbsp;This website is for educational purposes only <br> Visit <a href="https://www.food.com/">www.food.com</a>&nbsp;for original recipes</h5>
-        <div class="link-images">
-            <a href="https://github.com/gokulkrh"><img class="s_media_icon" src="{% static 'WebApp/icons/github.png' %}"></a>
-            <a href="https://www.linkedin.com/in/gokul-krishnan-g-33591a1a9"><img class="s_media_icon" src="{% static 'WebApp/icons/linkedin.png' %}"></a>
-            <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"><img class="s_media_icon" src="{% static 'WebApp/icons/twitter.png' %}"></a>
-            <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"><img class="s_media_icon" src="{% static 'WebApp/icons/youtube.png' %}"></a>
-        </div>
+        <footer class="bottom-section">
+            <h5 style="margin-block: 5px;"><b>NOTE:</b>&nbsp;This website is for educational purposes only <br> Visit <a href="https://www.food.com/">www.food.com</a>&nbsp;for original recipes</h5>
+            <div class="link-images">
+                <a href="https://github.com/gokulkrh"><img class="s_media_icon" src="{% static 'WebApp/icons/github.png' %}"></a>
+                <a href="https://www.linkedin.com/in/gokul-krishnan-g-33591a1a9"><img class="s_media_icon" src="{% static 'WebApp/icons/linkedin.png' %}"></a>
+                <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"><img class="s_media_icon" src="{% static 'WebApp/icons/twitter.png' %}"></a>
+                <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"><img class="s_media_icon" src="{% static 'WebApp/icons/youtube.png' %}"></a>
+            </div>
+        </footer>
     </div>
     <script>
         function display_more() {
