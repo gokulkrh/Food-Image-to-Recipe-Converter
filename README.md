@@ -28,6 +28,6 @@ The web application is made using django.
 
 You can upload a food image or, on mobile, you can take a picture. The system fetches 4 recipes that are visually most similar to the uploaded image, if your not happy with the result there is an option to show 4 more reciepes.
 <br><br>
-![Alt Text]("mobile_demo.gif")
+![](https://github.com/gokulkrh/Food-Image-to-Recipe-Converter/blob/main/mobile_demo.gif)
 <br><br><br><br><br><br>
 **reference:** http://pic2recipe.csail.mit.edu/
