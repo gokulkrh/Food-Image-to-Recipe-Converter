@@ -34,8 +34,8 @@ This is a demo of the web application on mobile devices.
 In the above example a picture of a vegetable puffs are taken and the application gave the correct recipe.
 <br><br><br>
 
-<b>Please NOTE:</b> For anyone asking about the links.csv file, I have intentionally not uploaded that file as it contains direct links to the recipes in food.com website, which i felt might be a little too in their face,
+<b>Please NOTE:</b> For anyone asking about the links.csv file, I have intentionally not uploaded that file as it contains direct links to the recipes in food.com website, which i felt might be a little too much,
 
-but if you are trying to recreate this project you don't need the links.csv file, the data scrapped using links.csv is in `indian_recipes.json` file use this file to get recipe names and modify the `scaper.py` file to only download the images for each recipe.
+but if you are trying to recreate this project you don't need the links.csv file, the data scrapped using links.csv is in `indian_recipes.json` file, use this file to get recipe names and modify the `scaper.py` file to only download the images for each recipe.
 <br><br><br>
 **reference:** http://pic2recipe.csail.mit.edu/
